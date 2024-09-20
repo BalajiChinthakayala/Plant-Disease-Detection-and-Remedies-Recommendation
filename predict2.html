@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Plant Disease</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url("/static/assets/img/background.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: white; /* Ensure text is visible against the background */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for form */
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .message {
+            color: red; /* Color for error messages */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Predict Plant Disease</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul>
+              {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        <form action="{{ url_for('predict2') }}" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required><br>
+            <input type="submit" value="Predict">
+        </form>
+    </div>
+</body>
+</html>
